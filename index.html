@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LINE返信マニュアル</title>
+<style>
+:root{
+  --bg:#faf9f7;
+  --panel:#ffffff;
+  --ink:#37352f;
+  --ink-soft:#6b6b66;
+  --border:rgba(55,53,47,0.09);
+  --accent:#2f7d5f;
+  --accent-soft:#e8f3ee;
+  --warn:#b34700;
+  --warn-soft:#fdf0e6;
+  --sidebar-w:260px;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.7;
+}
+
+/* ---------- Header ---------- */
+.top-header{
+  position:sticky;top:0;z-index:50;
+  display:flex;align-items:center;flex-wrap:wrap;gap:.75rem;
+  background:var(--panel);
+  border-bottom:1px solid var(--border);
+  padding:.9rem 1.25rem;
+}
+.top-header .logo{ font-size:1.4rem; }
+.top-header h1{ font-size:1.05rem; margin:0; font-weight:700; white-space:nowrap; }
+.menu-toggle{ display:none; border:none;background:none;font-size:1.3rem;cursor:pointer;color:var(--ink); }
+
+.search-wrap{ position:relative; flex:1 1 260px; max-width:420px; margin-left:auto; }
+.search-wrap input{
+  width:100%; padding:.55rem .9rem; font-size:.88rem; font-family:inherit;
+  border:1px solid var(--border); border-radius:999px; background:var(--bg); color:var(--ink); outline:none;
+  transition:border-color .12s ease, background .12s ease;
+}
+.search-wrap input:focus{ border-color:var(--accent); background:var(--panel); }
+.search-results{
+  display:none; position:absolute; top:calc(100% + 8px); left:0; right:0;
+  background:var(--panel); border:1px solid var(--border); border-radius:12px;
+  box-shadow:0 10px 28px rgba(0,0,0,0.14); max-height:65vh; overflow-y:auto; z-index:70;
+}
+.search-results.open{ display:block; }
+.search-result-item{ display:block; width:100%; text-align:left; background:none; border:none; border-bottom:1px solid var(--border); padding:.65rem .9rem; cursor:pointer; font-family:inherit; }
+.search-result-item:last-child{ border-bottom:none; }
+.search-result-item:hover, .search-result-item:focus{ background:var(--accent-soft); }
+.search-result-section{ font-size:.7rem; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:.03em; margin-bottom:.2rem; }
+.search-result-snippet{ font-size:.85rem; color:var(--ink); line-height:1.5; overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
+.search-result-snippet mark{ background:#fff3b0; color:inherit; font-weight:700; border-radius:2px; padding:0 .1em; }
+.search-empty{ padding:.9rem; font-size:.85rem; color:var(--ink-soft); text-align:center; }
+@keyframes flashHighlight{ 0%{ background:#fff3b0; } 100%{ background:transparent; } }
+.flash-highlight{ animation:flashHighlight 1.8s ease; border-radius:4px; }
+@media (max-width:700px){ .search-wrap{ order:3; flex-basis:100%; max-width:none; margin-left:0; } }
+
+/* ---------- Warning banner ---------- */
+.warn-banner{
+  background:var(--warn-soft);
+  color:var(--warn);
+  border-bottom:1px solid rgba(179,71,0,0.2);
+  padding:.7rem 1.25rem;
+  font-size:.85rem;
+  font-weight:700;
+  text-align:center;
+}
+
+/* ---------- Layout ---------- */
+.layout{ display:flex; max-width:1280px; margin:0 auto; align-items:flex-start; }
+
+.sidebar{
+  width:var(--sidebar-w); flex:0 0 var(--sidebar-w);
+  position:sticky; top:58px; height:calc(100vh - 58px); overflow-y:auto;
+  padding:1.5rem 1rem; border-right:1px solid var(--border);
+}
+.sidebar .nav-title{ font-size:.75rem; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-soft); margin:0 0 .6rem .5rem; font-weight:600; }
+.nav-link{ display:flex; align-items:center; gap:.55rem; padding:.55rem .6rem; border-radius:8px; text-decoration:none; color:var(--ink); font-size:.92rem; font-weight:500; margin-bottom:.15rem; transition:background .12s ease; }
+.nav-emoji{ font-size:1.05rem; }
+.nav-link:hover{ background:var(--accent-soft); }
+.nav-link.active{ background:var(--accent-soft); color:var(--accent); font-weight:700; }
+
+main{ flex:1; min-width:0; padding:2rem 2.5rem 6rem; }
+.page-section{ padding-top:1rem; margin-bottom:4rem; scroll-margin-top:75px; }
+.section-header{ display:flex; align-items:center; gap:.9rem; border-bottom:2px solid var(--border); padding-bottom:1rem; margin-bottom:1.75rem; }
+.section-header h1{ font-size:1.9rem; margin:0; display:flex; align-items:center; gap:.5rem; font-weight:800; }
+.section-emoji{ font-size:1.7rem; }
+
+.notion-content{ font-size:1.02rem; line-height:1.9; }
+.notion-content h2{ font-size:1.25rem; margin:2.6rem 0 1rem; font-weight:700; border-left:4px solid var(--accent); padding-left:.6rem; }
+.notion-content h2:first-child{ margin-top:0; }
+#replies .notion-content h2{
+  font-size:1.35rem;
+  margin:4.5rem 0 1.3rem;
+  padding:.7rem 0 .7rem 1rem;
+  background:var(--accent-soft);
+  border-left:6px solid var(--accent);
+  border-radius:0 10px 10px 0;
+}
+#replies .notion-content h2:first-child{ margin-top:0; }
+.notion-content h3{ font-size:1.05rem; margin:1.8rem 0 .6rem; font-weight:700; color:var(--accent); }
+.notion-content p{ margin:.7rem 0; }
+.notion-content ul, .notion-content ol{ padding-inline-start:1.6em; margin:.8em 0; }
+.notion-content li{ margin:.55em 0; }
+.notion-content ol > li{ padding-left:.3em; }
+.notion-content .step-note{ color:var(--ink-soft); font-size:.9em; margin-top:.2em; }
+.notion-content a{ color:var(--accent); text-decoration:underline; word-break:break-all; }
+.notion-content strong{ color:var(--ink); }
+.notion-content a strong{ color:var(--accent); }
+
+.notion-content table{ border-collapse:collapse; width:100%; margin:1rem 0 1.5rem; font-size:.85rem; overflow-x:auto; display:block; }
+.notion-content th, .notion-content td{ border:1px solid var(--border); padding:.5em .65em; text-align:left; vertical-align:top; }
+.notion-content th{ background:var(--accent-soft); color:var(--ink); font-weight:700; white-space:nowrap; }
+.notion-content tr:nth-child(even) td{ background:rgba(0,0,0,0.015); }
+
+.callout{ background:var(--accent-soft); border-radius:10px; padding:1rem 1.2rem; margin:1rem 0; font-size:.92rem; }
+.callout.warn{ background:var(--warn-soft); color:var(--warn); }
+.callout strong{ color:inherit; }
+
+.credential-box{
+  background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:.9rem 1.1rem; margin:.8rem 0; font-size:.92rem;
+}
+.credential-box .label{ font-weight:700; color:var(--accent); margin-bottom:.3rem; }
+.credential-box code{ background:rgba(135,131,120,0.15); border-radius:4px; padding:.1em .4em; font-size:.9em; }
+
+.reply-template{
+  background:#fdfdf9; border:1px dashed var(--border); border-radius:10px; padding:1rem 1.2rem; margin:1rem 0;
+  white-space:pre-wrap; font-size:.9rem; line-height:1.8;
+}
+
+.emoji-list{ list-style:none; padding:0; margin:0; }
+.emoji-list li{ display:flex; gap:.7rem; align-items:flex-start; padding:.6rem 0; border-bottom:1px solid var(--border); }
+.emoji-list li:last-child{ border-bottom:none; }
+.emoji-list .emoji{ font-size:1.4rem; flex:0 0 auto; }
+
+details.toggle{ margin:1rem 0; border:1px solid var(--border); border-radius:10px; padding:.4rem .9rem; background:var(--panel); }
+details.toggle > summary{ cursor:pointer; font-weight:700; padding:.5rem 0; }
+details.toggle .indented{ padding:.25rem 0 .75rem .3rem; }
+
+.to-top{
+  position:fixed; bottom:1.5rem; right:1.5rem; background:var(--accent); color:#fff; border:none;
+  width:46px; height:46px; border-radius:50%; font-size:1.2rem; cursor:pointer;
+  box-shadow:0 4px 14px rgba(0,0,0,0.18); display:none; align-items:center; justify-content:center; z-index:60;
+}
+
+@media (max-width:900px){
+  .menu-toggle{ display:block; }
+  .sidebar{
+    position:fixed; left:0; top:58px; height:calc(100vh - 58px); background:var(--panel); z-index:40;
+    transform:translateX(-105%); transition:transform .2s ease; box-shadow:2px 0 12px rgba(0,0,0,0.08);
+  }
+  .sidebar.open{ transform:translateX(0); }
+  main{ padding:1.25rem 1.1rem 5rem; }
+  .section-header h1{ font-size:1.4rem; }
+  .notion-content table{ font-size:.78rem; }
+}
+</style>
+</head>
+<body>
+
+<header class="top-header">
+  <button class="menu-toggle" id="menuToggle" aria-label="メニュー">☰</button>
+  <span class="logo">💬</span>
+  <h1>LINE返信マニュアル</h1>
+  <div class="search-wrap">
+    <input type="text" id="searchInput" placeholder="🔍 キーワードで検索（例: パスワード, リテンション, コーチ名）" autocomplete="off"/>
+    <div class="search-results" id="searchResults"></div>
+  </div>
+</header>
+
+<div class="warn-banner">⚠️ このページには実際のログイン情報・コーチ個人の面談URLが含まれます。社外・第三者には絶対に共有しないでください。</div>
+
+<div class="layout">
+  <nav class="sidebar" id="sidebar">
+    <p class="nav-title">目次</p>
+    <a href="#basic" class="nav-link" data-target="basic"><span class="nav-emoji">🌟</span>①基本</a>
+    <a href="#accounts" class="nav-link" data-target="accounts"><span class="nav-emoji">🔐</span>②使うアカウントとシステム</a>
+    <a href="#emoji" class="nav-link" data-target="emoji"><span class="nav-emoji">😀</span>③絵文字の意味</a>
+    <a href="#replies" class="nav-link" data-target="replies"><span class="nav-emoji">💬</span>④主な返信内容</a>
+    <a href="#retention" class="nav-link" data-target="retention"><span class="nav-emoji">💌</span>⑤リテンション</a>
+    <a href="#coaches" class="nav-link" data-target="coaches"><span class="nav-emoji">👥</span>⑥コーチ番号・面談URL・日程調整URL</a>
+    <a href="#other" class="nav-link" data-target="other"><span class="nav-emoji">📌</span>⑦その他</a>
+  </nav>
+
+  <main>
+
+    <section id="basic" class="page-section">
+      <div class="section-header"><h1><span class="section-emoji">🌟</span>①基本</h1></div>
+      <div class="notion-content">
+        <h2>LINEの目的</h2>
+        <ul><li>クライアントさんの目標を達成するためのコミュニケーションツール</li></ul>
+        <p>お客様は感情を表に出さずに話すことが多い。私たちは、相手の感情を読み取ることをLINE上で汲み取らないといけない。</p>
+
+        <h2>～LINE返信文の作り方～（相手から不安の自己開示があったとき）</h2>
+        <ol>
+          <li><strong>感謝</strong></li>
+          <li><strong>共感</strong>（心理的な安全性の確保）→いきなり励ますのはNG</li>
+          <li><strong>承認</strong>（自己開示への感謝）／IMessage（自分の気持ちを伝える）のもOK</li>
+          <li><strong>ヒアリング</strong>　❌すぐ解決策は出さない</li>
+        </ol>
+
+        <h2>LINE独り立ちするまで</h2>
+        <ol>
+          <li>LINE FBシートに記入する</li>
+          <li>複数できたらSlackでリーダーをメンションして「LINE FBシートの確認お願いします」と伝える</li>
+          <li>リーダーからのチェックがついたら送信</li>
+          <li>送信済みにチェックする</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="accounts" class="page-section">
+      <div class="section-header"><h1><span class="section-emoji">🔐</span>②使うアカウントとシステム</h1></div>
+      <div class="notion-content">
+        <h2>ログイン情報</h2>
+        <div class="credential-box">
+          <div class="label">Salesforceアカウント（SFA）</div>
+          アカウント：<code>cs@studyin.jp</code><br/>
+          パスワード：<code>blued1173</code>
+        </div>
+        <div class="credential-box">
+          <div class="label">LINEアカウント</div>
+          アカウント：<code>coaching@blued.jp</code><br/>
+          パスワード：<code>blued1173</code>
+        </div>
+
+        <h2>使うシステム（開けなかったらシークレットモードで）</h2>
+        <ul>
+          <li>LINE自動化システムくん（毎日ここから溜まっているLINEを確認し、上から順番に確認する）<br/>
+            <a href="https://script.google.com/a/macros/blued.jp/s/AKfycbyXdrCn9iX0V1xHCeVD7PEQ4LegKMKyqoSys3CDF6ID4F2lFheDeeCUylA8vGvB6-wxIg/exec" target="_blank" rel="noopener">script.google.com（LINE自動化システムくん）</a>
+          </li>
+          <li>LINE添削・FBシステム（LINE返信文を提案してくれます）<br/>
+            <a href="https://script.google.com/macros/s/AKfycbzHap3KfHAaC4IduL5w7QH8JyfBUMs5GNJCudoQGEEkluP_AVD9KaMHXL_NL_Cs6Nlz4g/exec" target="_blank" rel="noopener">LINE 添削・FB システム</a>
+          </li>
+          <li>リテンション作成・添削システム<br/>
+            <a href="https://script.google.com/macros/s/AKfycbxeZZ3eS6iR2A3gwHLzHJ02aevTrLcajsXeoVLBbAzZdUTjNC98n_YkmnRxv2tecE-j/exec" target="_blank" rel="noopener">リテンションLINE 作成・添削システム</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="emoji" class="page-section">
+      <div class="section-header"><h1><span class="section-emoji">😀</span>③絵文字の意味</h1></div>
+      <div class="notion-content">
+        <ul class="emoji-list">
+          <li><span class="emoji">👑</span><div>WH本気プランのお客様 → 私たちが対応するお客さんは基本このタグがついた方たち</div></li>
+          <li><span class="emoji">❤️</span><div>ブルードで保険に加入しているお客様</div></li>
+          <li><span class="emoji">🟦</span><div>マイページ登録した人</div></li>
+          <li><span class="emoji">🐸</span><div>追加の契約系をするお客様 → 基本私たちじゃなくてセールスが返す（時間が経っても返信していない場合はセールスにTodoを飛ばしてあげる）</div></li>
+          <li><span class="emoji">▲</span><div>キャンセルの人</div></li>
+          <li><span class="emoji">⭐︎</span><div>お客様のプランの金額帯（星が多いほどプランにお金をかけてくれているお客さん）</div></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="replies" class="page-section">
+      <div class="section-header"><h1><span class="section-emoji">💬</span>④主な返信内容</h1></div>
+      <div class="notion-content">
+
+        <h2>➀学習内容</h2>
+        <p>自分たちが返信する！他のコーチに共有したいこと、報告があれば下のスレッドで！</p>
+        <p><a href="https://bluedgroup.slack.com/archives/C0A4N2ZRX6U/p1768708017899559" target="_blank" rel="noopener">Slackスレッドを開く</a></p>
+
+        <h2>②面談調整</h2>
+        <div class="callout warn"><strong>必ず何の面談か、誰との面談かチェックする！</strong></div>
+
+        <h3>🌟コーチとの面談の場合</h3>
+        <ol>
+          <li>こちらから日程を提示する場合 → そのコーチの予定を見て日程を提案 → その旨を<a href="https://bluedgroup.slack.com/archives/C0A4N2ZRX6U/p1768708017899559" target="_blank" rel="noopener">Slack</a>で担当コーチに報告</li>
+          <li>お客さん側から日程を提示してくれた場合 → そのコーチの予定を見てLINE返信 → カレンダー招待 → その旨をSlackで担当コーチに報告</li>
+          <li>日程が確定した場合 → 面談を行うコーチの面談URLをお客様に送付（コーチ別の面談URLは<a href="#coaches">⑥コーチ番号・面談URL・日程調整URL</a>のページに貼ってあります！）</li>
+        </ol>
+        <details class="toggle" open>
+          <summary>カレンダー招待のやり方</summary>
+          <div class="indented"><p>自分のカレンダーに「〇〇さん」という予定を指定の時間に入力し、担当コーチを招待 → 自分は「参加しない」にする</p></div>
+        </details>
+
+        <h3>🌟日程確定後の送付文章例</h3>
+        <div class="reply-template">それでは○月○日、〇時からよろしくお願いいたします！当日は下のURLからご入室ください！
+ーURLを貼る</div>
+
+        <h3>🌟コーチ以外との面談の場合</h3>
+        <ol>
+          <li>誰との面談なのかを確認する</li>
+          <li>SFAで面談の相手宛にSFAを飛ばす（SFAの飛ばし方は下にあります）</li>
+          <li>お客様に<a href="#first-reply-example"><strong>一次返信する</strong></a></li>
+        </ol>
+        <p class="step-note">※面談の担当がわかるならその人宛てに、わからない場合はその部署にToDoを飛ばす</p>
+
+        <h2>③VISA関連（CS部署）</h2>
+        <p>URLからそのページに報告 → お客様に<a href="#first-reply-example"><strong>1次返信する</strong></a></p>
+        <p><a href="https://bluedgroup.slack.com/archives/CE3BJS4B0/p1718928694528469" target="_blank" rel="noopener">Slackスレッドを開く</a></p>
+
+        <h2>④その他（Visa、コーチ内で対応できないもの全て）</h2>
+        <p>CS宛てにSFAを飛ばす</p>
+        <h3>🌟SFAの飛ばし方</h3>
+        <ol>
+          <li>Sales Force → 検索からお客様の名前をコピペして検索</li>
+          <li>お客様の名前を押す（同姓同名だったらWH本気プランの人）</li>
+          <li>カスタマーサポートのところを押す</li>
+          <li>右側の緑色のところを押す</li>
+          <li>Todoのところで依頼分類は「LINE返信」</li>
+          <li>依頼内容はお客様の名前</li>
+          <li>割当先をToDoを飛ばしたい方や部署に変更</li>
+          <li>メール件名のところに「LINE返信お願いします」と入力</li>
+          <li>コメントのところにお客様からの返信をコピペ</li>
+          <li>保存 → <a href="#first-reply-example"><strong>１次返信</strong></a>（テンプレは下にあります）</li>
+        </ol>
+
+        <h3 id="first-reply-example">🌟一次返信の例</h3>
+        <div class="reply-template">お世話になっております。
+Studyln英語コーチです。
+こちら担当者に確認して折り返しご連絡差し上げます。
+お時間いただいて恐縮ですが少々お待ちいただけますと幸いです。</div>
+
+        <h2>⑤入金報告</h2>
+        <div class="callout"><strong>結論：</strong>お客様から入金完了した旨のご連絡をいただいた際は以下のテンプレ送付＆CS/PMにTodoを飛ばす必要なし。ただし、入金が遅れる場合のご連絡などは緊急度が高く、担当者へ共有が必要！</div>
+        <div class="reply-template">いつも大変お世話になっております。
+カスタマーサポートです。
+
+お振込完了のご報告ありがとうございます。
+StudyInで着金が確認できましたら、ラインで報告いたしますね。
+
+万が一着金が確認できない場合『銀行の振込領収書』をご共有いただく場合もございますので、捨てずにお手元に保管してください。
+
+銀行営業日の関係で、着金確認が遅れてしまうこともございます。
+予めご了承くださいませ。
+
+お忙しい中ご対応をいただきありがとうございました。
+引き続きよろしくお願いいたします。
+
+＊＊ご返信には及びません</div>
+
+        <h2>⑥説明会の話</h2>
+        <p>基本コーチング内で返信 → 自分でマイページを確認してわからなかったらコーチング内で社員さんに確認</p>
+
+        <h2>⑦ネイティブキャンプ関連</h2>
+        <p>お客様から「ネイティブキャンプが使えません」「ネイティブキャンプの再開希望のフォームを提出しましたが使えません」などの質問がきたら：</p>
+        <p>→下の<a href="https://bluedgroup.slack.com/archives/C0A4N2ZRX6U/p1777561515950189" target="_blank" rel="noopener">Slack</a>からヨレさんをメンションし、「○○さん（お客さんの名前）、再登録お願いします！」と送る</p>
+        <div class="callout">💡 この時、お客さんの名前の上にそのLINEにヨレさんがいつでも飛べるようにURLを載せておくと親切！</div>
+      </div>
+    </section>
+
+    <section id="retention" class="page-section">
+      <div class="section-header"><h1><span class="section-emoji">💌</span>⑤リテンション</h1></div>
+      <div class="notion-content">
+        <div class="callout">リテンションとは、お客様のモチベーションを維持し、学習を継続してもらうために私たちコーチがLINEを送り、コミュニケーションをとることです。</div>
+        <ul>
+          <li>3日に一度ペアでお客様に返信できているか確認</li>
+          <li>これまでの人のリテンションを見て温度感を合わせる</li>
+          <li>LINEノートにリテンションで意識することを書いてくれてある時もあるから必ずチェック！</li>
+          <li>「こんにちは！Studyln英語コーチです！」からLINEの文章を始める</li>
+        </ul>
+
+        <p>リテンションの文章は以下のシステムを使ってもいい：<br/>
+        <a href="https://script.google.com/macros/s/AKfycbxeZZ3eS6iR2A3gwHLzHJ02aevTrLcajsXeoVLBbAzZdUTjNC98n_YkmnRxv2tecE-j/exec" target="_blank" rel="noopener">リテンションLINE 作成・添削システム</a></p>
+
+        <p>そのお客さんの学習進捗を確認してからリテンションを送るととても良い。ここから学習進捗を確認できる：<br/>
+        <a href="https://script.google.com/macros/s/AKfycbyvjASBhCKBf3P-jVFG3Rpw2FcYvOt58fw5sRbuIH8pNBdpXxtlJ2Uc_VkkctItbGh4lA/exec" target="_blank" rel="noopener">Coaching Interface</a><br/>
+        この学習ログから Command＋F でお客様の名前を検索 → お客様の名前を押す</p>
+
+        <div class="callout">全然連絡返してくれない人はリテンションしない方がいい（しっかり文面を見てコーチと相談する）</div>
+
+        <h2>🌟リテンション例（あくまでイメージを持つために）</h2>
+
+        <h3>面談数日前</h3>
+        <div class="reply-template">○○さん、お世話になっております！コーチの〇〇です😊
+面談の日程が近づいてきましたが、聞いておきたいことや気になっていることはありますか？☺️
+事前にご相談したいことなどがあれば、お気軽にご連絡ください✨</div>
+
+        <h3>面談後数日たった時</h3>
+        <div class="reply-template">○○さん、こんにちは！
+StudyInコーチです😊
+面談の日程が近づいてきましたが、最近はいかがお過ごしでしょうか？
+学習を進める中で分からないことや、事前に聞いておきたいことなどがございましたら、いつでもお気軽にご連絡くださいね😊</div>
+
+        <h3>面談が前後にない時</h3>
+        <div class="reply-template">○○さん、お世話になっております！StudyInコーチです！
+6月は英単語や瞬間英作文を中心に学習を進められていますね✨
+英単語の学習については、最近「前より覚えられるようになってきた！」という実感はありますか？☺️</div>
+      </div>
+    </section>
+
+    <section id="coaches" class="page-section">
+      <div class="section-header"><h1><span class="section-emoji">👥</span>⑥コーチ番号・面談URL・日程調整URL</h1></div>
+      <div class="notion-content">
+        <p style="color:var(--ink-soft);font-size:.85rem;">※コーチが増えたら <code>coaches.js</code> の一覧に1行追加するだけで、この表に反映されます。</p>
+        <table id="coachTable">
+          <thead><tr><th>名前</th><th>LINEタグ</th><th>面談URL</th><th>録画設定確認</th><th>日程調整URL</th></tr></thead>
+          <tbody id="coachTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="other" class="page-section">
+      <div class="section-header"><h1><span class="section-emoji">📌</span>⑦その他</h1></div>
+      <div class="notion-content">
+        <h2>渡航日が変更になるとき</h2>
+        <p>渡航日を変えたらSFAの渡航日を編集して変える。<br/>
+        保険関連は渡航時期がズレると契約が変わる場合があるからきちんとSFAを飛ばす。<br/><br/>
+        Visaはめっちゃ渡航日が変わる場合は注意。</p>
+
+        <h2>WHに関する様々な質問</h2>
+        <p><a href="https://anhsakura0531.github.io/wh-guide/" target="_blank" rel="noopener">WH国別情報</a>から情報を探して返信</p>
+        <p class="step-note">→情報がなければ自分で調べる or 詳しい方に聞く</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<button class="to-top" id="toTop" aria-label="トップへ戻る">↑</button>
+
+<script src="coaches.js"></script>
+<script>
+  // ---------- Render coach table from coaches.js ----------
+  const coachTableBody = document.getElementById('coachTableBody');
+  COACHES.forEach(c => {
+    const tr = document.createElement('tr');
+    const meetCell = c.meetUrl
+      ? `<a href="${c.meetUrl}" target="_blank" rel="noopener">${c.meetUrl.replace(/^https?:\/\//, '')}</a>`
+      : '';
+    const schedulingCell = c.schedulingUrl
+      ? `<a href="${c.schedulingUrl}" target="_blank" rel="noopener">timerex</a>`
+      : '- none -';
+    tr.innerHTML = `<td>${c.name}</td><td>${c.tag}</td><td>${meetCell}</td><td>${c.recordingOk ? '✅' : '❌'}</td><td>${schedulingCell}</td>`;
+    coachTableBody.appendChild(tr);
+  });
+
+  const links = document.querySelectorAll('.nav-link');
+  const sections = document.querySelectorAll('.page-section');
+  const sidebar = document.getElementById('sidebar');
+  const menuToggle = document.getElementById('menuToggle');
+
+  menuToggle.addEventListener('click', () => sidebar.classList.toggle('open'));
+  links.forEach(l => l.addEventListener('click', () => sidebar.classList.remove('open')));
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const id = entry.target.getAttribute('id');
+      const link = document.querySelector('.nav-link[data-target="' + id + '"]');
+      if (entry.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+
+  const toTop = document.getElementById('toTop');
+  window.addEventListener('scroll', () => {
+    toTop.style.display = window.scrollY > 400 ? 'flex' : 'none';
+  });
+  toTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+
+  // ---------- Search ----------
+  const searchInput = document.getElementById('searchInput');
+  const searchResults = document.getElementById('searchResults');
+
+  function buildSearchIndex() {
+    const entries = [];
+    sections.forEach(section => {
+      const sectionTitle = section.querySelector('.section-header h1').textContent.trim();
+      const nodes = section.querySelectorAll('.notion-content h2, .notion-content h3, .notion-content p, .notion-content li, .notion-content td, .notion-content summary, .notion-content div.reply-template, .notion-content div.callout, .notion-content div.credential-box');
+      nodes.forEach(el => {
+        const text = el.textContent.replace(/\s+/g, ' ').trim();
+        if (text.length < 2) return;
+        entries.push({ el, text, sectionTitle });
+      });
+    });
+    return entries;
+  }
+  const searchIndex = buildSearchIndex();
+
+  function escapeHtml(str) {
+    return str.replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+  }
+
+  function makeSnippet(text, query) {
+    const lower = text.toLowerCase();
+    const idx = lower.indexOf(query);
+    const radius = 60;
+    let start = Math.max(0, idx - radius);
+    let end = Math.min(text.length, idx + query.length + radius);
+    let snippet = text.slice(start, end);
+    if (start > 0) snippet = '…' + snippet;
+    if (end < text.length) snippet = snippet + '…';
+    const safe = escapeHtml(snippet);
+    const re = new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'ig');
+    return safe.replace(re, '<mark>$1</mark>');
+  }
+
+  function closeResults() {
+    searchResults.classList.remove('open');
+    searchResults.innerHTML = '';
+  }
+
+  function runSearch(rawQuery) {
+    const query = rawQuery.trim().toLowerCase();
+    if (!query) { closeResults(); return; }
+
+    const matches = searchIndex.filter(e => e.text.toLowerCase().includes(query)).slice(0, 30);
+    searchResults.innerHTML = '';
+
+    if (matches.length === 0) {
+      const empty = document.createElement('div');
+      empty.className = 'search-empty';
+      empty.textContent = '「' + rawQuery + '」に一致する内容が見つかりませんでした';
+      searchResults.appendChild(empty);
+      searchResults.classList.add('open');
+      return;
+    }
+
+    matches.forEach(m => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'search-result-item';
+      const sectionLabel = document.createElement('div');
+      sectionLabel.className = 'search-result-section';
+      sectionLabel.textContent = m.sectionTitle;
+      const snippet = document.createElement('div');
+      snippet.className = 'search-result-snippet';
+      snippet.innerHTML = makeSnippet(m.text, query);
+      btn.appendChild(sectionLabel);
+      btn.appendChild(snippet);
+      btn.addEventListener('click', () => {
+        const details = m.el.closest('details');
+        if (details) details.open = true;
+        m.el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        m.el.classList.remove('flash-highlight');
+        void m.el.offsetWidth;
+        m.el.classList.add('flash-highlight');
+        closeResults();
+        searchInput.blur();
+      });
+      searchResults.appendChild(btn);
+    });
+    searchResults.classList.add('open');
+  }
+
+  let searchDebounce;
+  searchInput.addEventListener('input', (e) => {
+    clearTimeout(searchDebounce);
+    const value = e.target.value;
+    searchDebounce = setTimeout(() => runSearch(value), 120);
+  });
+  searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { searchInput.value=''; closeResults(); searchInput.blur(); }
+  });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.search-wrap')) closeResults();
+  });
+</script>
+</body>
+</html>

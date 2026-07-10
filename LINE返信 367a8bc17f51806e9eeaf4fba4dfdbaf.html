@@ -1,0 +1,828 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>LINE返信</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure,
+aside,
+details {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="367a8bc1-7f51-806e-9eea-f4fba4dfdbaf" class="page sans"><header><h1 class="page-title" dir="auto">LINE返信</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><p id="399a8bc1-7f51-8087-bb94-e6367c1410b8" class="" dir="auto"><br/>🌟基本</p><p id="399a8bc1-7f51-80db-93e6-e1372c9efb2d" class="" dir="auto">LINEの目的</p><ul id="399a8bc1-7f51-806f-b6b1-de0ac8271479" class="bulleted-list" dir="auto"><li style="list-style-type:disc">クライアントさんの目標を達成するためのコミュニケーションツール</li></ul><p id="399a8bc1-7f51-8000-b1de-c1db20708dd7" class="" dir="auto">
+</p><p id="399a8bc1-7f51-80c7-befe-f836853bd28b" class="" dir="auto">お客様は感情を表に出さずに話すことが多い</p><p id="399a8bc1-7f51-8048-83bf-fef4ee1de52d" class="" dir="auto">私たちは、相手の感情を読み取ることをLINE上で汲み取らないといけない</p><p id="399a8bc1-7f51-808d-88ae-cfa4e25d1d5b" class="" dir="auto"><br/></p><p id="399a8bc1-7f51-80b6-aab9-c7e027e381ab" class="" dir="auto">
+</p><p id="399a8bc1-7f51-80a0-b918-cd345e1b97c6" class="" dir="auto">・相手から不安の自己開示があったとき<br/><br/>～LINE返信文の作り方～</p><p id="399a8bc1-7f51-808e-bf95-d1d72a685e31" class="" dir="auto">感謝</p><p id="399a8bc1-7f51-804b-b353-d213221f8dae" class="" dir="auto">共感（心理的な安全性の確保）→いきなり励ますのはNG</p><p id="399a8bc1-7f51-80f8-9e2c-e6bd09a43bd6" class="" dir="auto">承認（自己開示への感謝）<br/><br/>IMessage（自分の気持ちを伝える）のもok</p><p id="399a8bc1-7f51-80cb-bd87-e693e049d1b6" class="" dir="auto">ヒアリング<br/>❌すぐ解決作は出さない</p><p id="399a8bc1-7f51-8084-a4b5-c0876eaa38dd" class="" dir="auto">
+</p><ul id="399a8bc1-7f51-8044-a57b-c63e951c6a98" class="bulleted-list" dir="auto"><li style="list-style-type:disc">LINE独り立ちするまで<br/><br/>LINE独り立ちするまでは、下のリンクのLINE　FBシートに記入する→複数できたらSlackでリーダをメンションして「LINE　FBシートの確認お願いします」と伝える→リーダーからのチェックがついたら送信→送信済みにチェックする</li></ul><p id="399a8bc1-7f51-80a5-9199-f17d1eebc2f5" class="" dir="auto">
+</p><p id="399a8bc1-7f51-809a-9ff0-d7735391e570" class="" dir="auto"><br/><br/>🌟使うアカウントとシステム</p><p id="399a8bc1-7f51-80e7-8300-d70311e80117" class="" dir="auto">
+</p><p id="399a8bc1-7f51-801e-ac72-eff971d7fd9d" class="" dir="auto">Salesforseアカウント（SFA）</p><p id="399a8bc1-7f51-801a-a779-deefce9505bd" class="" dir="auto">アカウント：cs@studyin.jp<br/>パスワード：blued1173<br/></p><p id="399a8bc1-7f51-805d-9bd7-faca438bfd86" class="" dir="auto"><br/>LINEアカウント</p><p id="399a8bc1-7f51-80fd-9c9b-ca3c6f12a8e2" class="" dir="auto">アカウント：<a href="mailto:coaching@blued.jp">coaching@blued.jp</a></p><p id="399a8bc1-7f51-8090-9637-e9ac8d2652fd" class="" dir="auto">パスワード：blued1173</p><p id="399a8bc1-7f51-8000-a102-c1b3bfb09fbb" class="" dir="auto">
+</p><h4 id="367a8bc1-7f51-80fd-845e-dedced2d56cb" class="" dir="auto"><br/>使うシステム（開けなかったらシークレットモードで）<br/></h4><p id="38ca8bc1-7f51-80a1-a179-d24d84abfc86" class="" dir="auto">・LINE自動化システムくん（毎日ここから溜まっているLINEを確認し、上から順番に確認する）</p><figure id="38ca8bc1-7f51-8025-ac6f-e87355294119" dir="ltr"><a href="https://script.google.com/a/macros/blued.jp/s/AKfycbyXdrCn9iX0V1xHCeVD7PEQ4LegKMKyqoSys3CDF6ID4F2lFheDeeCUylA8vGvB6-wxIg/exec" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title"></div></div><div class="bookmark-href">https://script.google.com/a/macros/blued.jp/s/AKfycbyXdrCn9iX0V1xHCeVD7PEQ4LegKMKyqoSys3CDF6ID4F2lFheDeeCUylA8vGvB6-wxIg/exec</div></div></a></figure><p id="399a8bc1-7f51-80ca-aabc-f1ce2c851b90" class="" dir="auto"><br/>LINE添削・FBシステム（LINE返信文を提案してくれます）</p><figure id="399a8bc1-7f51-8097-ac69-f4f090606f03" dir="ltr"><a href="https://script.google.com/macros/s/AKfycbzHap3KfHAaC4IduL5w7QH8JyfBUMs5GNJCudoQGEEkluP_AVD9KaMHXL_NL_Cs6Nlz4g/exec" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">LINE 添削・FB システム</div></div><div class="bookmark-href"><img src="https://script.google.com/favicon.ico" class="icon bookmark-icon"/>https://script.google.com/macros/s/AKfycbzHap3KfHAaC4IduL5w7QH8JyfBUMs5GNJCudoQGEEkluP_AVD9KaMHXL_NL_Cs6Nlz4g/exec</div></div></a></figure><p id="399a8bc1-7f51-80c6-beac-dd989e6cd9af" class="" dir="auto"><br/>リテンション作成・添削システム</p><figure id="399a8bc1-7f51-80c1-a1b7-cacaa6833c8c" dir="ltr"><a href="https://script.google.com/macros/s/AKfycbxeZZ3eS6iR2A3gwHLzHJ02aevTrLcajsXeoVLBbAzZdUTjNC98n_YkmnRxv2tecE-j/exec" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">リテンションLINE 作成・添削システム</div></div><div class="bookmark-href"><img src="https://script.google.com/favicon.ico" class="icon bookmark-icon"/>https://script.google.com/macros/s/AKfycbxeZZ3eS6iR2A3gwHLzHJ02aevTrLcajsXeoVLBbAzZdUTjNC98n_YkmnRxv2tecE-j/exec</div></div></a></figure><hr id="38ba8bc1-7f51-8056-b0e4-d2cc1ecf2a8f" dir="auto"/><p id="367a8bc1-7f51-80c9-a497-ca3f3130f8ed" class="" dir="auto">
+</p><hr id="38ca8bc1-7f51-80d0-b61a-e1a4ddd6a95a" dir="auto"/><p id="38ca8bc1-7f51-8093-a4ed-c59966b63206" class="" dir="auto">
+</p><h2 id="38ca8bc1-7f51-80c8-ad5d-c4fd952b725a" class="" dir="auto">絵文字の意味</h2><p id="38ca8bc1-7f51-803a-8638-f7e5d42a0778" class="" dir="auto">👑　WH本気プランのお客様→　私たちが対応するお客さんは基本このタグがついた方たち</p><p id="38ca8bc1-7f51-8058-a47a-c4fe0f1a3b4b" class="" dir="auto">❤️　ブルードで保険に加入しているお客様</p><p id="38ca8bc1-7f51-80ff-858f-f5b93d56cb2f" class="" dir="auto">🟦   マイページ登録した人</p><p id="38ca8bc1-7f51-80d6-a3a1-f7adb0cfc06a" class="" dir="auto">🐸　追加の契約系をするお客様→基本私たちじゃなくてセールスが返す（時間が経っても返信していない場合はセールスにTodo飛ばしてあげる）<br/>▲　キャンセルの人</p><p id="38ea8bc1-7f51-80fa-a614-f5ef009856f5" class="" dir="auto">⭐︎　お客様のプランの金額帯（星が多いほどプランにお金をかけてくれているお客さん）</p><p id="38ca8bc1-7f51-80d7-acac-e329bd2cf9d8" class="" dir="auto">
+</p><h2 id="38ca8bc1-7f51-8015-85ac-e2ca5ac90a21" class="" dir="auto">主な内容</h2><hr id="38ba8bc1-7f51-807e-a9da-e6db4b706b09" dir="auto"/><h3 id="367a8bc1-7f51-80a7-8071-e2539591985a" class="" dir="auto">➀学習内容</h3><p id="38ca8bc1-7f51-80ea-9c03-e0ea0264a155" class="" dir="auto">
+</p><p id="38ca8bc1-7f51-8025-805b-febf95389ddd" class="" dir="auto">自分たちが返信する！<br/>他のコーチに共有したいこと、報告があれば下のスレッドで！</p><figure id="38ca8bc1-7f51-80fc-8ecc-c2e08cb22ff4" dir="ltr"><div class="source">https://bluedgroup.slack.com/archives/C0A4N2ZRX6U/p1768708017899559</div></figure><hr id="38ca8bc1-7f51-801f-92fa-cda8db245516" dir="auto"/><h3 id="38ca8bc1-7f51-80d3-8dd8-e211ede35ec2" class="" dir="auto"><br/>②面談調整</h3><p id="38ca8bc1-7f51-808d-a347-f5683dc432c6" class="" dir="auto"><mark class="highlight-orange" data-notion-highlight="orange">必ず何の面談か、誰との面談かチェックする！</mark><br/><br/><br/>🌟コーチとの面談の場合</p><p id="38ba8bc1-7f51-801e-ae02-e58fd5f74543" class="" dir="auto"> ①こちらから日程を提示する場合→そのコーチの予定を見て日程を提案→その旨を下のSlackで担当コーチに報告</p><figure id="38ca8bc1-7f51-8043-8e3d-fbc027255e28" dir="ltr"><div class="source">https://bluedgroup.slack.com/archives/C0A4N2ZRX6U/p1768708017899559</div></figure><p id="38ca8bc1-7f51-80a5-82ec-dc5dae1cb1c0" class="" dir="auto">
+</p><p id="38ba8bc1-7f51-8081-9804-f4ea00c50f06" class="" dir="auto"> ②お客さん側から日程を提示してくれた場合→そのコーチの予定を見てLINE返信→カレンダー招待→その旨をSlackで担当コーチに報告</p><p id="399a8bc1-7f51-8090-8159-fd747cd66d73" class="" dir="auto">
+</p><p id="38ba8bc1-7f51-8037-b3e6-e02aa6e642b8" class="" dir="auto">
+</p><details id="38ba8bc1-7f51-80b2-860b-ff415647d402" open="" class="toggle" dir="auto"><summary>カレンダー招待のやり方</summary><div class="indented"><p id="38ba8bc1-7f51-80b9-96a4-e9370767c76b" class="" dir="auto">自分のカレンダーに「〇〇さん」という予定を指定の時間に入力し、担当コーチを招待→自分は「参加しない」にする</p><p id="399a8bc1-7f51-809f-84d2-ff5f75e2781c" class="" dir="auto">
+</p></div></details><p id="399a8bc1-7f51-809b-a154-f1008d969b7f" class="" dir="auto">　🌟コーチ以外との面談の場合<br/><br/>→誰との面談なのかを確認する→ＳＦＡで面談の相手当てにＳＦＡを飛ばす（ＳＦＡの飛ばし方は下にあります！）<br/>※面談の担当がわかるならその人宛てに、わからない場合はその部署にＴｏＤＯを飛ばす</p><p id="399a8bc1-7f51-80d3-a90c-f0a550f45463" class="" dir="auto">→お客様に<mark class="highlight-orange" data-notion-highlight="orange">一次返信する</mark></p><hr id="38ca8bc1-7f51-802f-b6a5-d754e7cb2bc2" dir="auto"/><p id="38ca8bc1-7f51-8083-8dca-d12d7065e732" class="" dir="auto"><br/>③VISA関連（CS部署）<br/><br/>URLからそのページに報告→お客様に<mark class="highlight-orange" data-notion-highlight="orange">1次返信する</mark></p><figure id="38ca8bc1-7f51-8027-a10e-fe607100c68b" dir="ltr"><div class="source">https://bluedgroup.slack.com/archives/CE3BJS4B0/p1718928694528469</div></figure><hr id="38ca8bc1-7f51-80ec-b89b-d8a713ed633f" dir="auto"/><p id="367a8bc1-7f51-8074-9f51-e5c4bc000247" class="block-color-default" data-notion-highlight="default" dir="auto"><br/><br/>④その他（Visa、コーチ内で対応できないもの全て）<br/>→ＣＳ宛てにＳＦＡを飛ばす<br/><br/><br/>🌟ＳＦＡの飛ばし方</p><p id="371a8bc1-7f51-80cc-a13f-e0b32b32f5b1" class="" dir="auto">　→Sales Force→検索からお客様の名前をコピペして検索→お客様の名前を押す（同姓同名だったらWH本気プランの人）→カスタマーサポートのところを押す→右側の緑色のところを押す→Todoのところで依頼分類はLINE返信→依頼内容はお客様の名前→割当先をPMチームに変更→メール件名のところに「LINE返信お願いします」と入力→コメントのところにお客様からの返信をコピペ→保存→<mark class="highlight-orange" data-notion-highlight="orange">１次返信（１次返信のテンプレは下にあります！）<br/><br/></mark></p><p id="399a8bc1-7f51-8001-88dc-d615deae5e4c" class="" dir="auto"><br/>🌟一次返信の例</p><p id="399a8bc1-7f51-8061-90b7-f8effdee63e0" class="" dir="auto">お世話になっております。</p><p id="399a8bc1-7f51-80b0-9e35-df240ff4f473" class="" dir="auto">Studyln英語コーチです。</p><p id="399a8bc1-7f51-804b-9c12-c6d7db06634f" class="" dir="auto">こちら担当者に確認して折り返しご連絡差し上げます。</p><p id="399a8bc1-7f51-8028-b2f6-dac23910e58b" class="" dir="auto">お時間いただいて恐縮ですが少々お待ちいただけますと幸いです。<mark class="highlight-orange" data-notion-highlight="orange"><br/><br/><br/></mark></p><p id="38ea8bc1-7f51-808f-96fb-dd03637ad2c9" class="" dir="auto">
+</p><hr id="38ca8bc1-7f51-8034-b704-f65bee9a6356" dir="auto"/><hr id="38ca8bc1-7f51-8069-84a6-f4f1957e37b7" dir="auto"/><p id="38ca8bc1-7f51-8003-91f2-e078f20c37c4" class="" dir="auto">
+</p><h2 id="38ca8bc1-7f51-80f1-a07e-c69834daa4d7" class="" dir="auto">⑤入金報告</h2><p id="38ba8bc1-7f51-8063-8f1c-dd3000ea1c99" class="" dir="auto"><code>結論</code><strong>お客様から入金完了した旨のご連絡をいただいた際は以下のテンプレ送付&amp; CS/PMにTodoを飛ばす必要なし。ただし、入金が遅れる場合のご連絡などは緊急度が高く、担当者へ共有が必要！</strong></p><hr id="38ea8bc1-7f51-8083-83a6-c49c384ab130" dir="auto"/><p id="38ea8bc1-7f51-8072-a31f-eca5961ac204" class="" dir="auto">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="389a8bc1-7f51-80a1-98d7-c111ecc4d6b7" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">いつも大変お世話になっております。
+カスタマーサポートです。
+
+お振込完了のご報告ありがとうございます。
+StudyInで着金が確認できましたら、ラインで報告いたしますね。
+
+万が一着金が確認できない場合『銀行の振込領収書』をご共有いただく場合もございますので、捨てずにお手元に保管してください。
+
+銀行営業日の関係で、着金確認が遅れてしまうこともございます。
+予めご了承くださいませ。
+
+お忙しい中ご対応をいただきありがとうございました。
+引き続きよろしくお願いいたします。
+
+＊＊ご返信には及びません</code></pre><p id="386a8bc1-7f51-801f-a097-e82277694e4f" class="" dir="auto">
+</p><h2 id="386a8bc1-7f51-8069-9a4b-d9f45a6df49b" class="" dir="auto">⑥説明会の話</h2><p id="38ea8bc1-7f51-80d1-977b-cbd01472458f" class="" dir="auto">
+</p><p id="38ca8bc1-7f51-8029-854b-c2b24bc028fb" class="" dir="auto">基本コーチング内で返信→自分でマイページを確認してわからなかったらコーチング内で社員さんに確認</p><p id="399a8bc1-7f51-809f-ab00-d274ac52e73e" class="" dir="auto">
+</p><p id="399a8bc1-7f51-8053-9440-c6d41e92ada3" class="" dir="auto">⑦ネイティブキャンプ関連<br/></p><p id="367a8bc1-7f51-80d3-938d-f06a02ecbf06" class="" dir="auto">
+</p><p id="367a8bc1-7f51-80a4-8618-c107c76915d9" class="" dir="auto">
+</p><p id="36da8bc1-7f51-80d0-b83b-c91a044036ed" class="" dir="auto">
+</p><p id="367a8bc1-7f51-80ed-a4dd-c1ae9080bd7a" class="" dir="auto">
+</p><p id="367a8bc1-7f51-803a-8da4-ef4e367904c6" class="" dir="auto">
+</p><p id="367a8bc1-7f51-80d0-b046-fd8b56f9729b" class="" dir="auto">
+</p><p id="367a8bc1-7f51-80ca-9829-cff57ea0324a" class="" dir="auto">
+</p><p id="368a8bc1-7f51-802c-bf29-e6318aac0428" class="" dir="auto"><br/></p><p id="36da8bc1-7f51-808e-8729-d8c1965abf5f" class="" dir="auto">
+</p><p id="36da8bc1-7f51-803b-97ae-d67133ea1417" class="" dir="auto">⭐️リテンション</p><p id="36da8bc1-7f51-80c9-b997-e80b6b7db9d6" class="" dir="auto">３日に一度ペアでお客様に返信できているか確認</p><p id="399a8bc1-7f51-80ca-b910-d600da6f555d" class="" dir="auto">これまでの人のリテンションを見て温度感を合わせる</p><p id="399a8bc1-7f51-80d0-bc4e-f85a35cdaaa8" class="" dir="auto">LINEノートにリテンションで意識することを書いてくれてある時もあるから必ずチェック！</p><p id="386a8bc1-7f51-80a8-af49-e01b77ad0190" class="" dir="auto">こんにちは！Studyln英語コーチです！からLINEの文章を始める<br/><br/>リテンションの文章は以下のシステムを使ってもいい<br/></p><figure id="399a8bc1-7f51-8023-a320-f42b7f96e748" dir="ltr"><a href="https://script.google.com/macros/s/AKfycbxeZZ3eS6iR2A3gwHLzHJ02aevTrLcajsXeoVLBbAzZdUTjNC98n_YkmnRxv2tecE-j/exec" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">リテンションLINE 作成・添削システム</div></div><div class="bookmark-href"><img src="https://script.google.com/favicon.ico" class="icon bookmark-icon"/>https://script.google.com/macros/s/AKfycbxeZZ3eS6iR2A3gwHLzHJ02aevTrLcajsXeoVLBbAzZdUTjNC98n_YkmnRxv2tecE-j/exec</div></div></a></figure><p id="399a8bc1-7f51-8062-a6f1-c82ce0493b57" class="" dir="auto"><br/>そのお客さんの学習進捗を確認してからリテンションを送るととても良い<br/>ここから学習進捗を確認できる！</p><figure id="399a8bc1-7f51-8076-b4c5-ccbe8e28e3be" dir="ltr"><a href="https://script.google.com/macros/s/AKfycbyvjASBhCKBf3P-jVFG3Rpw2FcYvOt58fw5sRbuIH8pNBdpXxtlJ2Uc_VkkctItbGh4lA/exec" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Coaching Interface</div></div><div class="bookmark-href"><img src="https://script.google.com/favicon.ico" class="icon bookmark-icon"/>https://script.google.com/macros/s/AKfycbyvjASBhCKBf3P-jVFG3Rpw2FcYvOt58fw5sRbuIH8pNBdpXxtlJ2Uc_VkkctItbGh4lA/exec</div></div></a></figure><p id="399a8bc1-7f51-8061-a106-e499ca623872" class="" dir="auto">この学習ログからCommandプラス Fでお客様の名前を検索→お客様の名前を押す<br/><br/></p><p id="399a8bc1-7f51-80a2-b8dc-cff78e1461bb" class="" dir="auto">全然連絡返してくれない人はリテンションしない方がいい（しっかり文面を見てコーチと相談する）</p><p id="399a8bc1-7f51-80d3-b57b-fb5a516b067e" class="" dir="auto"><br/><br/>🌟リテンション例（あくまでイメージを持つために）<br/><br/><br/>リテンション例（コーチとの面談数日前）<br/>○○さん、お世話になっております！コーチの〇〇です😊</p><p id="399a8bc1-7f51-8074-bd60-c1de407ef4c4" class="" dir="auto">面談の日程が近づいてきましたが、聞いておきたいことや気になっていることはありますか？☺️</p><p id="399a8bc1-7f51-8026-ab03-d679d0904381" class="" dir="auto">事前にご相談したいことなどがあれば、お気軽にご連絡ください✨</p><p id="399a8bc1-7f51-80b2-963c-cfa3984ed337" class="" dir="auto">
+</p><p id="399a8bc1-7f51-80a0-afec-fc09824a386d" class="" dir="auto">リテンション例（コーチとの面談後数日たった時）</p><p id="399a8bc1-7f51-8025-8698-cfb98e4ae020" class="" dir="auto">○○さん、こんにちは！<br/>StudyInコーチです😊</p><p id="399a8bc1-7f51-8005-ab8f-df00f659d364" class="" dir="auto">面談の日程が近づいてきましたが、最近はいかがお過ごしでしょうか？<br/>学習を進める中で分からないことや、事前に聞いておきたいことなどがございましたら、いつでもお気軽にご連絡くださいね😊</p><p id="399a8bc1-7f51-802c-92fc-c6fcf6d8a25b" class="" dir="auto">
+</p><p id="399a8bc1-7f51-8058-b194-c20814526497" class="" dir="auto">リテンション例（コーチとの面談が前後にない時）</p><p id="399a8bc1-7f51-801c-9ba1-e736c2b7da95" class="" dir="auto">○○さん、お世話になっております！StudyInコーチです！<br/>6月は英単語や瞬間英作文を中心に学習を進められていますね✨<br/>英単語の学習については、最近「前より覚えられるようになってきた！」という実感はありますか？☺️</p><p id="36da8bc1-7f51-804e-93e8-d11d98f1a166" class="" dir="auto">
+</p><p id="36da8bc1-7f51-80a1-81d1-db283668f40b" class="" dir="auto">
+</p><p id="36da8bc1-7f51-80c7-b6aa-fe8f2f1a6dcd" class="" dir="auto">
+</p><p id="371a8bc1-7f51-806e-ad74-d81b72042f3f" class="" dir="auto">🌟コーチ番号と面談URL,日程調整URL</p><table id="399a8bc1-7f51-80b5-ba2a-de5dbf9cabef" class="simple-table" dir="ltr"><tbody><tr id="399a8bc1-7f51-80dd-8236-fb34cfca306e" dir="ltr"><td id="\KB`" class=""><strong>名前</strong></td><td id="ojMk" class=""><strong>LINEタグ</strong></td><td id="}{Mj" class=""><strong>面談URL</strong></td><td id="g|~w" class=""><strong>録画設定確認</strong></td><td id="=b}m" class=""><strong>日程調整URL</strong></td></tr><tr id="399a8bc1-7f51-8076-b83c-db52cbad7f45" dir="ltr"><td id="\KB`" class="">李如來</td><td id="ojMk" class="">C1</td><td id="}{Mj" class=""><a href="http://meet.google.com/xeq-jopp-ziv">meet.google.com/xeq-jopp-ziv</a></td><td id="g|~w" class="">✅</td><td id="=b}m" class=""><a href="https://timerex.net/s/yulae.lee_a805/3993768e">https://timerex.net/s/yulae.lee_a805/3993768e</a></td></tr><tr id="399a8bc1-7f51-80e7-9257-e847c8a459d1" dir="ltr"><td id="\KB`" class="">井岡澄萌美</td><td id="ojMk" class="">C2</td><td id="}{Mj" class=""><a href="http://meet.google.com/uax-rgrg-myk">meet.google.com/uax-rgrg-myk</a></td><td id="g|~w" class="">✅</td><td id="=b}m" class="">- none -</td></tr><tr id="399a8bc1-7f51-8094-a3b9-c3d9821ca7c2" dir="ltr"><td id="\KB`" class="">清水鈴</td><td id="ojMk" class="">C3</td><td id="}{Mj" class=""><a href="http://meet.google.com/aun-ddvo-zob">meet.google.com/aun-ddvo-zob</a></td><td id="g|~w" class="">✅</td><td id="=b}m" class=""><a href="https://timerex.net/s/coaching_1592_d1f5/25dc3dcc">https://timerex.net/s/coaching_1592_d1f5/25dc3dcc</a></td></tr><tr id="399a8bc1-7f51-80ad-a312-f4e615f0a66f" dir="ltr"><td id="\KB`" class="">福田大輔</td><td id="ojMk" class="">C4</td><td id="}{Mj" class=""><a href="http://meet.google.com/afx-qytk-axr">meet.google.com/afx-qytk-axr</a></td><td id="g|~w" class="">✅</td><td id="=b}m" class=""><a href="https://timerex.net/s/daisuke.fukuda.blued_5a73/d117d16e">https://timerex.net/s/daisuke.fukuda.blued_5a73/d117d16e</a></td></tr><tr id="399a8bc1-7f51-80b0-bc54-ca892403a3cc" dir="ltr"><td id="\KB`" class="">合田彩歩</td><td id="ojMk" class="">C5</td><td id="}{Mj" class=""><a href="http://meet.google.com/pmr-jgcy-tbr">meet.google.com/pmr-jgcy-tbr</a></td><td id="g|~w" class="">✅</td><td id="=b}m" class=""><a href="https://timerex.net/s/saho.goda.blued_4024/2d048eb7">https://timerex.net/s/saho.goda.blued_4024/2d048eb7</a></td></tr><tr id="399a8bc1-7f51-805f-a050-f13107d3e90d" dir="ltr"><td id="\KB`" class="">益子明子</td><td id="ojMk" class="">C6</td><td id="}{Mj" class=""><a href="http://meet.google.com/aey-paat-cbx">meet.google.com/aey-paat-cbx</a></td><td id="g|~w" class="">✅</td><td id="=b}m" class=""><a href="https://timerex.net/s/akane.mashiko.blued_6cce/54d11ee1">https://timerex.net/s/akane.mashiko.blued_6cce/54d11ee1</a></td></tr><tr id="399a8bc1-7f51-80e4-87bf-eb6970388bf1" dir="ltr"><td id="\KB`" class="">早川瑠泉</td><td id="ojMk" class="">C7</td><td id="}{Mj" class=""><a href="http://meet.google.com/hcg-mxca-iaj">meet.google.com/hcg-mxca-iaj</a></td><td id="g|~w" class="">✅</td><td id="=b}m" class=""><a href="https://timerex.net/s/rumi.hayakawa.blued_bef1/70759def">https://timerex.net/s/rumi.hayakawa.blued_bef1/70759def</a></td></tr><tr id="399a8bc1-7f51-808e-8ff0-cf1fdfaf73cf" dir="ltr"><td id="\KB`" class=""></td><td id="ojMk" class="">C8</td><td id="}{Mj" class=""></td><td id="g|~w" class=""></td><td id="=b}m" class=""></td></tr><tr id="399a8bc1-7f51-8087-a4f2-d71a07cac660" dir="ltr"><td id="\KB`" class="">富永咲</td><td id="ojMk" class="">C9</td><td id="}{Mj" class=""><a href="http://meet.google.com/vft-mmxr-qep">meet.google.com/vft-mmxr-qep</a></td><td id="g|~w" class="">✅</td><td id="=b}m" class=""><a href="https://timerex.net/s/saki.tominaga.blued_8ab2/647add45">https://timerex.net/s/saki.tominaga.blued_8ab2/647add45</a></td></tr><tr id="399a8bc1-7f51-8094-b759-e14431cdacfa" dir="ltr"><td id="\KB`" class="">グエン</td><td id="ojMk" class="">C10</td><td id="}{Mj" class=""><a href="http://meet.google.com/hgw-iqck-ztf">meet.google.com/hgw-iqck-ztf</a></td><td id="g|~w" class="">✅</td><td id="=b}m" class=""></td></tr><tr id="399a8bc1-7f51-808c-a7cb-c9687943d002" dir="ltr"><td id="\KB`" class=""></td><td id="ojMk" class="">C11</td><td id="}{Mj" class=""></td><td id="g|~w" class="">FALSE</td><td id="=b}m" class=""></td></tr><tr id="399a8bc1-7f51-8055-9251-dcd313b47120" dir="ltr"><td id="\KB`" class="">玉手</td><td id="ojMk" class="">C12</td><td id="}{Mj" class=""><a href="http://meet.google.com/wkr-tntt-yio">meet.google.com/wkr-tntt-yio</a></td><td id="g|~w" class="">✅</td><td id="=b}m" class=""></td></tr><tr id="399a8bc1-7f51-8043-a8f0-fc1a3c8ef694" dir="ltr"><td id="\KB`" class="">押方</td><td id="ojMk" class="">C13</td><td id="}{Mj" class=""><a href="http://meet.google.com/oup-exha-ogs">meet.google.com/oup-exha-ogs</a></td><td id="g|~w" class="">FALSE</td><td id="=b}m" class=""></td></tr></tbody></table><p id="374a8bc1-7f51-8019-91a8-eebbf6d23d70" class="" dir="auto">
+</p><p id="374a8bc1-7f51-8049-b5d0-cae1974a96ca" class="" dir="auto">
+</p><p id="374a8bc1-7f51-80a4-9d27-f6107e71ddeb" class="" dir="auto">
+</p><p id="374a8bc1-7f51-8053-bcd4-e04ccc266999" class="" dir="auto">
+</p><p id="374a8bc1-7f51-8047-93f5-c39d729418b1" class="" dir="auto">
+</p><p id="374a8bc1-7f51-800b-9977-c9df0026b100" class="" dir="auto">
+</p><p id="374a8bc1-7f51-80c4-99b4-d3a2b9abf1e5" class="" dir="auto">
+</p><p id="374a8bc1-7f51-8005-9e78-f9300d0b2fe0" class="" dir="auto">
+</p><p id="374a8bc1-7f51-80d8-8c24-c835d9c9495f" class="" dir="auto">
+</p><p id="386a8bc1-7f51-80e4-b092-d38eb60aa60e" class="" dir="auto">🌟その他</p><p id="399a8bc1-7f51-80ce-abc4-d58e9cd1069b" class="" dir="auto">
+</p><p id="399a8bc1-7f51-80db-9113-ceb038fc670c" class="" dir="auto">
+</p><p id="38ea8bc1-7f51-80a3-ad76-ca1a2d029bb0" class="" dir="auto">渡航日が変更になるとき</p><p id="38ea8bc1-7f51-8084-a69c-ce629ae5ffc6" class="" dir="auto">渡航日を変えたらSFAの渡航日を編集して変える<br/>保険関連は渡航時期がズレると契約が変わる場合があるからきちんとSFA飛ばす<br/><br/>Visaはめっちゃ渡航日が変わる場合は注意</p><p id="399a8bc1-7f51-80cd-ba84-fe32d121cf28" class="" dir="auto">
+</p><p id="399a8bc1-7f51-80fe-b6a3-f116eef5e526" class="" dir="auto">
+</p><p id="399a8bc1-7f51-80d7-ae8e-e3c5c295b836" class="" dir="auto">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
