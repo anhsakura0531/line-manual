@@ -107,7 +107,7 @@ main{ flex:1; min-width:0; padding:2rem 2.5rem 6rem; }
 .notion-content{ font-size:1.02rem; line-height:1.9; }
 .notion-content h2{ font-size:1.25rem; margin:2.6rem 0 1rem; font-weight:700; border-left:4px solid var(--accent); padding-left:.6rem; }
 .notion-content h2:first-child{ margin-top:0; }
-#replies .notion-content h2{
+#replies .notion-content h2, #collab .notion-content h2{
   font-size:1.35rem;
   margin:4.5rem 0 1.3rem;
   padding:.7rem 0 .7rem 1rem;
@@ -115,7 +115,7 @@ main{ flex:1; min-width:0; padding:2rem 2.5rem 6rem; }
   border-left:6px solid var(--accent);
   border-radius:0 10px 10px 0;
 }
-#replies .notion-content h2:first-child{ margin-top:0; }
+#replies .notion-content h2:first-child, #collab .notion-content h2:first-child{ margin-top:0; }
 .notion-content h3{ font-size:1.05rem; margin:1.8rem 0 .6rem; font-weight:700; color:var(--accent); }
 .notion-content p{ margin:.7rem 0; }
 .notion-content ul, .notion-content ol{ padding-inline-start:1.6em; margin:.8em 0; }
@@ -155,6 +155,26 @@ details.toggle{ margin:1rem 0; border:1px solid var(--border); border-radius:10p
 details.toggle > summary{ cursor:pointer; font-weight:700; padding:.5rem 0; }
 details.toggle .indented{ padding:.25rem 0 .75rem .3rem; }
 
+/* ---------- Step flow cards (reply steps / milestones) ---------- */
+.step-card{ display:flex; gap:1rem; align-items:flex-start; padding:1.1rem 0; border-bottom:1px solid var(--border); }
+.step-card:last-child{ border-bottom:none; }
+.step-num{
+  flex:0 0 auto; width:2.3rem; height:2.3rem; border-radius:50%;
+  background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center;
+  font-weight:800; font-size:1rem;
+}
+.step-body{ flex:1; min-width:0; }
+.step-body h3{ margin:0 0 .4rem; }
+.step-body p, .step-body ul, .step-body ol{ margin:.4rem 0; }
+
+/* ---------- Reason cards (なぜ／理想状態／防ぎたいこと) ---------- */
+.reason-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:.75rem; margin:1rem 0 2rem; }
+.reason-card{ background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:.85rem 1rem; font-size:.87rem; }
+.reason-card .reason-label{ font-weight:700; color:var(--accent); font-size:.75rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.35rem; }
+.reason-card.avoid .reason-label{ color:var(--warn); }
+.reason-card p{ margin:0; }
+@media (max-width:700px){ .reason-grid{ grid-template-columns:1fr; } }
+
 .to-top{
   position:fixed; bottom:1.5rem; right:1.5rem; background:var(--accent); color:#fff; border:none;
   width:46px; height:46px; border-radius:50%; font-size:1.2rem; cursor:pointer;
@@ -191,44 +211,66 @@ details.toggle .indented{ padding:.25rem 0 .75rem .3rem; }
 <div class="layout">
   <nav class="sidebar" id="sidebar">
     <p class="nav-title">目次</p>
-    <a href="#basic" class="nav-link" data-target="basic"><span class="nav-emoji">🌟</span>①基本</a>
-    <a href="#accounts" class="nav-link" data-target="accounts"><span class="nav-emoji">🔐</span>②使うアカウントとシステム</a>
-    <a href="#emoji" class="nav-link" data-target="emoji"><span class="nav-emoji">😀</span>③絵文字の意味</a>
-    <a href="#replies" class="nav-link" data-target="replies"><span class="nav-emoji">💬</span>④主な返信内容</a>
-    <a href="#retention" class="nav-link" data-target="retention"><span class="nav-emoji">💌</span>⑤リテンション</a>
-    <a href="#coaches" class="nav-link" data-target="coaches"><span class="nav-emoji">👥</span>⑥コーチ番号・面談URL・日程調整URL</a>
-    <a href="#other" class="nav-link" data-target="other"><span class="nav-emoji">📌</span>⑦その他</a>
+    <a href="#mindset" class="nav-link" data-target="mindset"><span class="nav-emoji">🌟</span>①LINEの基本スタンス</a>
+    <a href="#purpose" class="nav-link" data-target="purpose"><span class="nav-emoji">🎯</span>②LINEの目的</a>
+    <a href="#accounts" class="nav-link" data-target="accounts"><span class="nav-emoji">🔐</span>③使うアカウントとシステム</a>
+    <a href="#features" class="nav-link" data-target="features"><span class="nav-emoji">⚙️</span>④LINEの基本機能</a>
+    <a href="#tags" class="nav-link" data-target="tags"><span class="nav-emoji">🏷️</span>⑤お客様タグ（絵文字）の意味</a>
+    <a href="#reply-flow" class="nav-link" data-target="reply-flow"><span class="nav-emoji">💬</span>⑥LINE返信の考え方</a>
+    <a href="#replies" class="nav-link" data-target="replies"><span class="nav-emoji">📮</span>⑦主な返信内容</a>
+    <a href="#retention" class="nav-link" data-target="retention"><span class="nav-emoji">💌</span>⑧リテンション</a>
+    <a href="#milestones" class="nav-link" data-target="milestones"><span class="nav-emoji">🎓</span>⑨LINE独り立ちまでのマイルストーン</a>
+    <a href="#collab" class="nav-link" data-target="collab"><span class="nav-emoji">🤝</span>⑩他部署連携（VISA・入金・渡航日変更）</a>
+    <a href="#coaches" class="nav-link" data-target="coaches"><span class="nav-emoji">👥</span>⑪コーチ番号・面談URL・日程調整URL</a>
+    <a href="#other" class="nav-link" data-target="other"><span class="nav-emoji">📌</span>⑫その他</a>
   </nav>
 
   <main>
 
-    <section id="basic" class="page-section">
-      <div class="section-header"><h1><span class="section-emoji">🌟</span>①基本</h1><button class="speak-btn" data-section="basic" aria-label="読み上げ">🔊</button></div>
+    <section id="mindset" class="page-section">
+      <div class="section-header"><h1><span class="section-emoji">🌟</span>①LINEの基本スタンス</h1><button class="speak-btn" data-section="mindset" aria-label="読み上げ">🔊</button></div>
       <div class="notion-content">
-        <h2>LINEの目的</h2>
-        <ul><li>クライアントさんの目標を達成するためのコミュニケーションツール</li></ul>
-        <p>お客様は感情を表に出さずに話すことが多い。私たちは、相手の感情を読み取ることをLINE上で汲み取らないといけない。</p>
+        <p>LINE対応は、テンプレートに沿って文章を打つだけの作業ではありません。画面の向こうには、悩みや不安を抱えた一人のお客様がいます。返信文を作る前に、まずこの章の考え方を必ず頭に入れてください。ここが土台になっていないと、後の章で学ぶ「返信の作り方」もただの手順になってしまいます。</p>
 
-        <h2>～LINE返信文の作り方～（相手から不安の自己開示があったとき）</h2>
-        <ol>
-          <li><strong>感謝</strong></li>
-          <li><strong>共感</strong>（心理的な安全性の確保）→いきなり励ますのはNG</li>
-          <li><strong>承認</strong>（自己開示への感謝）／IMessage（自分の気持ちを伝える）のもOK</li>
-          <li><strong>ヒアリング</strong>　❌すぐ解決策は出さない</li>
-        </ol>
+        <h2>お客様と社内では見えている世界が違う</h2>
+        <p>私たちは日々多くのお客様に対応しているため、似たような質問や相談を「よくあること」として処理しがちです。しかしお客様にとっては、留学や渡航は人生で一度きりの大きな挑戦であることが多く、一通のLINEには少なからず不安や期待が込められています。「社内では当たり前」でも「お客様にとっては初めて」であることを、常に忘れないようにしましょう。</p>
 
-        <h2>LINE独り立ちするまで</h2>
-        <ol>
-          <li>LINE FBシートに記入する</li>
-          <li>複数できたらSlackでリーダーをメンションして「LINE FBシートの確認お願いします」と伝える</li>
-          <li>リーダーからのチェックがついたら送信</li>
-          <li>送信済みにチェックする</li>
-        </ol>
+        <h2>LINEの向こうには必ず人がいる</h2>
+        <p>文字だけのやり取りだからこそ、事務的・機械的な印象を与えやすいという特性があります。返信を作成する際は、「これは作業ではなく、一人の人に向けたメッセージである」という意識を持ってください。丁寧すぎるくらいの気配りが、お客様の安心につながります。</p>
+
+        <h2>一問一答ではなく、お客様が本当に求めていることを考える</h2>
+        <p>お客様の質問に文字通り答えるだけでは、本当の意味で問題を解決できないことがあります。例えば「面談っていつでしたっけ？」という質問の裏には、「予定を忘れていて不安」「他の予定と被っていないか心配」といった気持ちが隠れていることもあります。質問の表面だけでなく、その背景にある意図や気持ちまで想像したうえで返信を作りましょう。</p>
+
+        <h2>お客様の感情を想像する</h2>
+        <p>お客様は感情を表に出さずに話すことが多いため、私たちの方から積極的に感情を読み取りにいく必要があります。言葉選びやスタンプの使い方、返信までの時間の空き方などから、「今、お客様はどんな気持ちだろう？」と想像する癖をつけましょう。この想像力が、次章以降で扱う「共感」の質を大きく左右します。</p>
+      </div>
+    </section>
+
+    <section id="purpose" class="page-section">
+      <div class="section-header"><h1><span class="section-emoji">🎯</span>②LINEの目的</h1><button class="speak-btn" data-section="purpose" aria-label="読み上げ">🔊</button></div>
+      <div class="notion-content">
+        <h2>会社全体としてLINEを使う目的</h2>
+        <p>LINEは、契約前から契約後まで、お客様と会社をつなぐ最も身近なコミュニケーション手段です。会社全体としては、LINEを通じてお客様の状況をタイムリーに把握し、必要なサポートを適切な部署へつなぐことで、お客様が安心して留学・渡航準備を進められる状態をつくることを目的としています。</p>
+
+        <h2>各部署の役割</h2>
+        <p>お客様から届くLINEには、契約状況や相談内容によって対応すべき部署が分かれています。基本的な役割分担は以下の通りです（判断に迷う場合は、自己判断せずリーダーや周りのインターン生に確認してください）。</p>
+        <table>
+          <thead><tr><th>部署</th><th>主な役割</th></tr></thead>
+          <tbody>
+            <tr><td>IS（Inside Sales）</td><td>お問い合わせ対応〜契約前までの追客・案内</td></tr>
+            <tr><td>FS（Field Sales）</td><td>契約手続き、契約後の追加提案・追加契約（🐸タグのお客様など）</td></tr>
+            <tr><td>CS（Customer Support）</td><td>契約後の事務手続きサポート（VISA、入金確認、渡航手続きなど）</td></tr>
+            <tr><td>Coaching</td><td>契約後の学習サポート、面談調整、モチベーション維持（リテンション）</td></tr>
+          </tbody>
+        </table>
+
+        <h2>コーチング部署でLINEを使う目的</h2>
+        <p>コーチング部署では、お客様が学習を継続し、目標を達成できるよう伴走することがLINE対応の目的です。学習相談や面談調整だけでなく、モチベーションの浮き沈みに気づき、必要なタイミングで声をかけることも大切な役割です。自部署で対応できない内容（VISA、入金など）は、無理に自分で抱え込まず、担当部署へ正しくつなぐことも、コーチングにおけるLINE対応の一部です。</p>
       </div>
     </section>
 
     <section id="accounts" class="page-section">
-      <div class="section-header"><h1><span class="section-emoji">🔐</span>②使うアカウントとシステム</h1><button class="speak-btn" data-section="accounts" aria-label="読み上げ">🔊</button></div>
+      <div class="section-header"><h1><span class="section-emoji">🔐</span>③使うアカウントとシステム</h1><button class="speak-btn" data-section="accounts" aria-label="読み上げ">🔊</button></div>
       <div class="notion-content">
         <h2>ログイン情報</h2>
         <div class="credential-box">
@@ -257,27 +299,123 @@ details.toggle .indented{ padding:.25rem 0 .75rem .3rem; }
       </div>
     </section>
 
-    <section id="emoji" class="page-section">
-      <div class="section-header"><h1><span class="section-emoji">😀</span>③絵文字の意味</h1><button class="speak-btn" data-section="emoji" aria-label="読み上げ">🔊</button></div>
+    <section id="features" class="page-section">
+      <div class="section-header"><h1><span class="section-emoji">⚙️</span>④LINEの基本機能</h1><button class="speak-btn" data-section="features" aria-label="読み上げ">🔊</button></div>
       <div class="notion-content">
+        <p>LINE公式アカウントには、複数人・複数部署で1つの窓口を運用するための機能が備わっています。これらを正しく使うことで、対応漏れや二重対応を防ぎ、チーム全体でお客様対応の状況を共有できます。</p>
+
+        <h2>タグ</h2>
+        <p>お客様ごとに絵文字タグを付けて、プランの種類や契約状況をひと目で分かるようにする機能です。詳しいタグの意味は<a href="#tags">⑤お客様タグ（絵文字）の意味</a>を参照してください。</p>
+
+        <h2>送信予約</h2>
+        <p>指定した日時に自動でメッセージを送信する機能です。深夜・早朝などお客様に配慮したい時間帯を避けたい場合や、翌営業日の朝に送りたい場合などに活用します。</p>
+
+        <h2>要対応</h2>
+        <p>まだ返信・対応が終わっていないメッセージに付けるマークです。担当者が一目で分かるようにし、対応漏れを防ぐ役割があります。</p>
+
+        <h2>対応済み</h2>
+        <p>対応が完了したメッセージに付けるマークです。他のメンバーが同じお客様に重複して返信してしまうことを防ぎます。</p>
+
+        <h2>LINEノート</h2>
+        <p>そのお客様に関する申し送り事項をメモしておく機能です。リテンションで意識すべきことや、これまでのやり取りの背景が書かれている場合があるため、対応前に必ず確認しましょう。担当が変わっても、これまでの経緯を引き継げる重要な機能です。</p>
+
+        <div class="callout">💡 これらの機能は、「一人が抱え込む」のではなく「チームで対応する」ための仕組みです。使い方に迷ったら、自己判断せず周りに確認しましょう。</div>
+      </div>
+    </section>
+
+    <section id="tags" class="page-section">
+      <div class="section-header"><h1><span class="section-emoji">🏷️</span>⑤お客様タグ（絵文字）の意味</h1><button class="speak-btn" data-section="tags" aria-label="読み上げ">🔊</button></div>
+      <div class="notion-content">
+        <p>LINEの<a href="#features">タグ機能</a>を使って、お客様のプラン種別や契約状況を絵文字で分類しています。対応前に必ずタグを確認し、「誰の、どんな状況の相談か」を把握してから返信を作成しましょう。</p>
         <ul class="emoji-list">
           <li><span class="emoji">👑</span><div>WH本気プランのお客様 → 私たちが対応するお客さんは基本このタグがついた方たち</div></li>
           <li><span class="emoji">❤️</span><div>ブルードで保険に加入しているお客様</div></li>
           <li><span class="emoji">🟦</span><div>マイページ登録した人</div></li>
-          <li><span class="emoji">🐸</span><div>追加の契約系をするお客様 → 基本私たちじゃなくてセールスが返す（時間が経っても返信していない場合はセールスにTodoを飛ばしてあげる）</div></li>
+          <li><span class="emoji">🐸</span><div>追加の契約系をするお客様 → 基本私たちじゃなくてセールス（FS）が返す（時間が経っても返信していない場合はセールスにTodoを飛ばしてあげる）</div></li>
           <li><span class="emoji">▲</span><div>キャンセルの人</div></li>
           <li><span class="emoji">⭐︎</span><div>お客様のプランの金額帯（星が多いほどプランにお金をかけてくれているお客さん）</div></li>
         </ul>
       </div>
     </section>
 
+    <section id="reply-flow" class="page-section">
+      <div class="section-header"><h1><span class="section-emoji">💬</span>⑥LINE返信の考え方</h1><button class="speak-btn" data-section="reply-flow" aria-label="読み上げ">🔊</button></div>
+      <div class="notion-content">
+        <p>返信は、思いついた言葉をそのまま打つのではなく、次の6つのSTEPに沿って作成します。特にSTEP1〜3の「理解」「共感」「判断」を省略すると、お客様が本当に求めていることとズレた返信になりやすいので注意してください。</p>
+
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h3>お客様の言いたいことを理解する</h3>
+            <p>お客様のメッセージを読んだら、まず「事実」と「解釈」を分けて整理しましょう。事実とは、実際に書かれている内容そのものです。解釈とは、そこから私たちが推測する背景や感情です。この2つを混同すると、思い込みだけで返信してしまい、お客様の意図とズレる原因になります。</p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h3>共感・承認</h3>
+            <p>結論やアドバイスから入るのではなく、まずお客様の気持ちに寄り添う言葉を伝えます。特に不安の自己開示があったときは、次の順番を意識すると、お客様に「受け止めてもらえた」と感じてもらいやすくなります。</p>
+            <ol>
+              <li><strong>感謝</strong>（話してくれたことへのお礼）</li>
+              <li><strong>共感</strong>（心理的な安全性の確保）→ いきなり励ますのはNG</li>
+              <li><strong>承認</strong>（自己開示への感謝）／ Iメッセージ（自分の気持ちを伝える）のもOK</li>
+            </ol>
+            <p class="step-note">❌ この段階で、すぐに解決策を出さないようにしましょう。焦って解決策を提示すると、お客様は「話を聞いてもらえていない」と感じてしまうことがあります。</p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h3>コンサルティングなのかコーチングなのか判断する</h3>
+            <p>お客様の相談内容によって、対応の仕方を切り替える必要があります。</p>
+            <ul>
+              <li><strong>コンサルティング的な対応</strong>：VISAや手続き方法など、事実・正解がある質問。この場合は曖昧にせず、はっきりと正確な情報を伝えます。</li>
+              <li><strong>コーチング的な対応</strong>：学習の不安やモチベーションなど、正解が一つではない相談。この場合はすぐに答えを与えるのではなく、問いかけを通じてお客様自身の気づきを引き出します。</li>
+            </ul>
+            <p class="step-note">どちらか迷う場合は、両方の要素を含んだ返信になっても構いません。ただし「本来コンサルティングで答えるべき事実確認」を、コーチング的な問いかけだけで済ませてしまわないよう注意しましょう。</p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h3>返信作成</h3>
+            <p>STEP1〜3で整理した内容をもとに、実際の返信文を作成します。一文が長くなりすぎないよう、読みやすい長さで区切りましょう。</p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <h3>LINE添削くん・StudyIn対応席で確認</h3>
+            <p>作成した返信文は自己判断だけで送信せず、必ず<a href="#accounts">LINE添削・FBシステム（LINE添削くん）</a>で内容をチェックします。加えて、StudyIn対応席（人によるダブルチェックの窓口）でも確認を受けることで、表現の誤りや認識のズレを送信前に防ぐことができます。</p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">6</div>
+          <div class="step-body">
+            <h3>AIっぽくないか最終確認</h3>
+            <p>ツールでの添削は便利な一方、機械的・定型的な表現になりやすいという注意点もあります。送信前に「自分がお客様だったら、この文章を人からのメッセージだと感じられるか」を最終チェックしてください。<a href="#mindset">①LINEの基本スタンス</a>で触れた通り、LINEの向こうには必ず人がいます。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="replies" class="page-section">
-      <div class="section-header"><h1><span class="section-emoji">💬</span>④主な返信内容</h1><button class="speak-btn" data-section="replies" aria-label="読み上げ">🔊</button></div>
+      <div class="section-header"><h1><span class="section-emoji">📮</span>⑦主な返信内容</h1><button class="speak-btn" data-section="replies" aria-label="読み上げ">🔊</button></div>
       <div class="notion-content">
 
-        <h2>➀学習内容</h2>
+        <h2>①学習内容</h2>
         <p>自分たちが返信する！他のコーチに共有したいこと、報告があれば下のスレッドで！</p>
         <p><a href="https://bluedgroup.slack.com/archives/C0A4N2ZRX6U/p1768708017899559" target="_blank" rel="noopener">Slackスレッドを開く</a></p>
+        <div class="reason-grid">
+          <div class="reason-card"><div class="reason-label">なぜ</div><p>学習状況を一番理解しているのは担当コーチだから、自分たちで直接対応します。</p></div>
+          <div class="reason-card"><div class="reason-label">理想状態</div><p>お客様の疑問や不安がその場で解消され、学習が止まらない状態。</p></div>
+          <div class="reason-card avoid"><div class="reason-label">防ぎたいこと</div><p>対応の重複によるお客様の混乱や、返信の遅れによるモチベーション低下。</p></div>
+        </div>
 
         <h2>②面談調整</h2>
         <div class="callout warn"><strong>必ず何の面談か、誰との面談かチェックする！</strong></div>
@@ -286,7 +424,7 @@ details.toggle .indented{ padding:.25rem 0 .75rem .3rem; }
         <ol>
           <li>こちらから日程を提示する場合 → そのコーチの予定を見て日程を提案 → その旨を<a href="https://bluedgroup.slack.com/archives/C0A4N2ZRX6U/p1768708017899559" target="_blank" rel="noopener">Slack</a>で担当コーチに報告</li>
           <li>お客さん側から日程を提示してくれた場合 → そのコーチの予定を見てLINE返信 → カレンダー招待 → その旨をSlackで担当コーチに報告</li>
-          <li>日程が確定した場合 → 面談を行うコーチの面談URLをお客様に送付（コーチ別の面談URLは<a href="#coaches">⑥コーチ番号・面談URL・日程調整URL</a>のページに貼ってあります！）</li>
+          <li>日程が確定した場合 → 面談を行うコーチの面談URLをお客様に送付（コーチ別の面談URLは<a href="#coaches">⑪コーチ番号・面談URL・日程調整URL</a>のページに貼ってあります！）</li>
         </ol>
         <details class="toggle" open>
           <summary>カレンダー招待のやり方</summary>
@@ -304,12 +442,13 @@ details.toggle .indented{ padding:.25rem 0 .75rem .3rem; }
           <li>お客様に<a href="#first-reply-example"><strong>一次返信する</strong></a></li>
         </ol>
         <p class="step-note">※面談の担当がわかるならその人宛てに、わからない場合はその部署にToDoを飛ばす</p>
+        <div class="reason-grid">
+          <div class="reason-card"><div class="reason-label">なぜ</div><p>日程のズレやダブルブッキングはお客様の信頼を損なうため、正確な確認が必須です。</p></div>
+          <div class="reason-card"><div class="reason-label">理想状態</div><p>お客様・コーチ双方が安心して当日を迎えられる状態（日時・URL・担当者が明確）。</p></div>
+          <div class="reason-card avoid"><div class="reason-label">防ぎたいこと</div><p>誤った日程調整、URLの送り忘れ、担当者への共有漏れによるすっぽかし。</p></div>
+        </div>
 
-        <h2>③VISA関連（CS部署）</h2>
-        <p>URLからそのページに報告 → お客様に<a href="#first-reply-example"><strong>1次返信する</strong></a></p>
-        <p><a href="https://bluedgroup.slack.com/archives/CE3BJS4B0/p1718928694528469" target="_blank" rel="noopener">Slackスレッドを開く</a></p>
-
-        <h2>④その他（Visa、コーチ内で対応できないもの全て）</h2>
+        <h2>③その他（コーチ内で対応できないもの）</h2>
         <p>CS宛てにSFAを飛ばす</p>
         <h3>🌟SFAの飛ばし方</h3>
         <ol>
@@ -330,39 +469,41 @@ details.toggle .indented{ padding:.25rem 0 .75rem .3rem; }
 Studyln英語コーチです。
 こちら担当者に確認して折り返しご連絡差し上げます。
 お時間いただいて恐縮ですが少々お待ちいただけますと幸いです。</div>
+        <div class="reason-grid">
+          <div class="reason-card"><div class="reason-label">なぜ</div><p>専門外の内容を自己判断で答えると誤情報や対応齟齬が生じるため、必ず専門部署に引き継ぎます。</p></div>
+          <div class="reason-card"><div class="reason-label">理想状態</div><p>お客様を待たせすぎず、正しい部署に一次返信つきで確実に引き継がれている状態。</p></div>
+          <div class="reason-card avoid"><div class="reason-label">防ぎたいこと</div><p>「たらい回し」感を与えること、依頼が誰にも拾われず放置されること。</p></div>
+        </div>
 
-        <h2>⑤入金報告</h2>
-        <div class="callout"><strong>結論：</strong>お客様から入金完了した旨のご連絡をいただいた際は以下のテンプレ送付＆CS/PMにTodoを飛ばす必要なし。ただし、入金が遅れる場合のご連絡などは緊急度が高く、担当者へ共有が必要！</div>
-        <div class="reply-template">いつも大変お世話になっております。
-カスタマーサポートです。
-
-お振込完了のご報告ありがとうございます。
-StudyInで着金が確認できましたら、ラインで報告いたしますね。
-
-万が一着金が確認できない場合『銀行の振込領収書』をご共有いただく場合もございますので、捨てずにお手元に保管してください。
-
-銀行営業日の関係で、着金確認が遅れてしまうこともございます。
-予めご了承くださいませ。
-
-お忙しい中ご対応をいただきありがとうございました。
-引き続きよろしくお願いいたします。
-
-＊＊ご返信には及びません</div>
-
-        <h2>⑥説明会の話</h2>
+        <h2>④説明会の話</h2>
         <p>基本コーチング内で返信 → 自分でマイページを確認してわからなかったらコーチング内で社員さんに確認</p>
+        <div class="reason-grid">
+          <div class="reason-card"><div class="reason-label">なぜ</div><p>コーチング内で完結できる内容は、部署をまたがずスピーディーに答えるためです。</p></div>
+          <div class="reason-card"><div class="reason-label">理想状態</div><p>お客様がその場で疑問を解消できる状態。</p></div>
+          <div class="reason-card avoid"><div class="reason-label">防ぎたいこと</div><p>わからないことを憶測で答えてしまうこと。</p></div>
+        </div>
 
-        <h2>⑦ネイティブキャンプ関連</h2>
+        <h2>⑤ネイティブキャンプ関連</h2>
         <p>お客様から「ネイティブキャンプが使えません」「ネイティブキャンプの再開希望のフォームを提出しましたが使えません」などの質問がきたら：</p>
         <p>→下の<a href="https://bluedgroup.slack.com/archives/C0A4N2ZRX6U/p1777561515950189" target="_blank" rel="noopener">Slack</a>からヨレさんをメンションし、「○○さん（お客さんの名前）、再登録お願いします！」と送る</p>
         <div class="callout">💡 この時、お客さんの名前の上にそのLINEにヨレさんがいつでも飛べるようにURLを載せておくと親切！</div>
+        <div class="reason-grid">
+          <div class="reason-card"><div class="reason-label">なぜ</div><p>システムトラブルは専門の担当者（ヨレさん）でないと解決できないため、窓口を明確にします。</p></div>
+          <div class="reason-card"><div class="reason-label">理想状態</div><p>お客様が最短で再びネイティブキャンプを使える状態に戻ること。</p></div>
+          <div class="reason-card avoid"><div class="reason-label">防ぎたいこと</div><p>対応が宙に浮いて、お客様の学習が長期間止まってしまうこと。</p></div>
+        </div>
       </div>
     </section>
 
     <section id="retention" class="page-section">
-      <div class="section-header"><h1><span class="section-emoji">💌</span>⑤リテンション</h1><button class="speak-btn" data-section="retention" aria-label="読み上げ">🔊</button></div>
+      <div class="section-header"><h1><span class="section-emoji">💌</span>⑧リテンション</h1><button class="speak-btn" data-section="retention" aria-label="読み上げ">🔊</button></div>
       <div class="notion-content">
         <div class="callout">リテンションとは、お客様のモチベーションを維持し、学習を継続してもらうために私たちコーチがLINEを送り、コミュニケーションをとることです。</div>
+        <div class="reason-grid">
+          <div class="reason-card"><div class="reason-label">なぜ</div><p>連絡が途絶えると学習の継続率が下がりやすいため、こちらから能動的に声をかけます。</p></div>
+          <div class="reason-card"><div class="reason-label">理想状態</div><p>お客様が「見てもらえている」と感じ、安心して学習を続けられている状態。</p></div>
+          <div class="reason-card avoid"><div class="reason-label">防ぎたいこと</div><p>形式的・義務的な連絡だとお客様に感じさせてしまうこと。</p></div>
+        </div>
         <ul>
           <li>3日に一度ペアでお客様に返信できているか確認</li>
           <li>これまでの人のリテンションを見て温度感を合わせる</li>
@@ -399,8 +540,101 @@ StudyInコーチです😊
       </div>
     </section>
 
+    <section id="milestones" class="page-section">
+      <div class="section-header"><h1><span class="section-emoji">🎓</span>⑨LINE独り立ちまでのマイルストーン</h1><button class="speak-btn" data-section="milestones" aria-label="読み上げ">🔊</button></div>
+      <div class="notion-content">
+        <p>入社してすぐは、一人の判断でLINEを送信することはありません。以下のステップを一件ずつ積み重ねながら、少しずつ独り立ちを目指します。</p>
+
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h3>LINE FBシートに記入する</h3>
+            <p>作成した返信文をLINE FBシートに記入します。まずは「自分なりの返信文を作れる」状態を目指す段階です。</p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h3>リーダーに確認を依頼する</h3>
+            <p>複数件たまったら、Slackでリーダーをメンションして「LINE FBシートの確認お願いします」と伝えます。まとめて依頼することで、リーダーの確認負担を減らします。</p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h3>フィードバックを受けて送信する</h3>
+            <p>リーダーからのチェックがついたら、内容を反映のうえ送信します。指摘された点は、次回以降の返信作成に活かしましょう。</p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h3>送信済みにチェックする</h3>
+            <p>対応が完了したら、シート上で送信済みにチェックを入れます。対応状況をチーム全体で把握できるようにするためです。</p>
+          </div>
+        </div>
+
+        <div class="callout">💡 このサイクルを繰り返し、リーダーからの指摘が少なくなってきたら、独り立ち（自分の判断での送信）に向けてリーダーと相談していきます。焦らず、一件ずつ丁寧に積み重ねましょう。</div>
+      </div>
+    </section>
+
+    <section id="collab" class="page-section">
+      <div class="section-header"><h1><span class="section-emoji">🤝</span>⑩他部署連携（VISA・入金・渡航日変更）</h1><button class="speak-btn" data-section="collab" aria-label="読み上げ">🔊</button></div>
+      <div class="notion-content">
+        <p>ここで扱う内容は、コーチング部署だけで完結せず、他部署との連携が必要なものです。自己判断で処理せず、必ず担当部署へ正しく引き継ぎましょう。</p>
+
+        <h2>VISA関連</h2>
+        <p>URLからそのページに報告 → お客様に<a href="#first-reply-example"><strong>一次返信する</strong></a></p>
+        <p><a href="https://bluedgroup.slack.com/archives/CE3BJS4B0/p1718928694528469" target="_blank" rel="noopener">Slackスレッドを開く</a></p>
+        <div class="reason-grid">
+          <div class="reason-card"><div class="reason-label">背景</div><p>VISAの取得状況は渡航そのものに直結する重要事項であり、コーチが独自に判断できる範囲を超えています。</p></div>
+          <div class="reason-card"><div class="reason-label">理想状態</div><p>お客様を待たせず、正確な情報がCS部署から提供される状態。</p></div>
+          <div class="reason-card avoid"><div class="reason-label">防ぎたいこと</div><p>不確かな情報をコーチが独自に伝えてしまうこと。</p></div>
+        </div>
+        <p class="step-note">📮 エスカレーション先：CS部署（上記Slackスレッド）</p>
+
+        <h2>入金報告</h2>
+        <div class="callout"><strong>結論：</strong>お客様から入金完了した旨のご連絡をいただいた際は以下のテンプレ送付＆CS/PMにTodoを飛ばす必要なし。ただし、入金が遅れる場合のご連絡などは緊急度が高く、担当者へ共有が必要！</div>
+        <div class="reply-template">いつも大変お世話になっております。
+カスタマーサポートです。
+
+お振込完了のご報告ありがとうございます。
+StudyInで着金が確認できましたら、ラインで報告いたしますね。
+
+万が一着金が確認できない場合『銀行の振込領収書』をご共有いただく場合もございますので、捨てずにお手元に保管してください。
+
+銀行営業日の関係で、着金確認が遅れてしまうこともございます。
+予めご了承くださいませ。
+
+お忙しい中ご対応をいただきありがとうございました。
+引き続きよろしくお願いいたします。
+
+＊＊ご返信には及びません</div>
+        <div class="reason-grid">
+          <div class="reason-card"><div class="reason-label">背景</div><p>着金確認そのものは経理・CSの管轄のため、コーチが確認作業を担う必要はありません。</p></div>
+          <div class="reason-card"><div class="reason-label">理想状態</div><p>お客様が安心して入金完了を認識できている状態。</p></div>
+          <div class="reason-card avoid"><div class="reason-label">防ぎたいこと</div><p>入金遅延など緊急性の高い連絡を、通常のテンプレ対応だけで済ませてしまうこと。</p></div>
+        </div>
+        <p class="step-note">📮 エスカレーション先：通常は不要（テンプレ対応のみ）／入金遅延の連絡があった場合のみ担当CS・PMへ共有</p>
+
+        <h2>渡航日変更</h2>
+        <p>渡航日を変えたらSFAの渡航日を編集して変える。<br/>
+        保険関連は渡航時期がズレると契約が変わる場合があるからきちんとSFAを飛ばす。<br/><br/>
+        Visaはめっちゃ渡航日が変わる場合は注意。</p>
+        <div class="reason-grid">
+          <div class="reason-card"><div class="reason-label">背景</div><p>渡航日はVISA・保険契約など複数の手続きの前提になっているため、変更時にずれが生じると契約内容全体に影響します。</p></div>
+          <div class="reason-card"><div class="reason-label">理想状態</div><p>渡航日変更が関係部署すべてに正しく反映されている状態。</p></div>
+          <div class="reason-card avoid"><div class="reason-label">防ぎたいこと</div><p>SFAの更新漏れによって、保険やVISAの手続きが古い日程のまま進んでしまうこと。</p></div>
+        </div>
+        <p class="step-note">📮 エスカレーション先：SFAで渡航日を編集 → 保険担当・VISA担当（CS部署）へ確認</p>
+      </div>
+    </section>
+
     <section id="coaches" class="page-section">
-      <div class="section-header"><h1><span class="section-emoji">👥</span>⑥コーチ番号・面談URL・日程調整URL</h1><button class="speak-btn" data-section="coaches" aria-label="読み上げ">🔊</button></div>
+      <div class="section-header"><h1><span class="section-emoji">👥</span>⑪コーチ番号・面談URL・日程調整URL</h1><button class="speak-btn" data-section="coaches" aria-label="読み上げ">🔊</button></div>
       <div class="notion-content">
         <p style="color:var(--ink-soft);font-size:.85rem;">※コーチが増えたら <code>coaches.js</code> の一覧に1行追加するだけで、この表に反映されます。</p>
         <table id="coachTable">
@@ -411,13 +645,8 @@ StudyInコーチです😊
     </section>
 
     <section id="other" class="page-section">
-      <div class="section-header"><h1><span class="section-emoji">📌</span>⑦その他</h1><button class="speak-btn" data-section="other" aria-label="読み上げ">🔊</button></div>
+      <div class="section-header"><h1><span class="section-emoji">📌</span>⑫その他</h1><button class="speak-btn" data-section="other" aria-label="読み上げ">🔊</button></div>
       <div class="notion-content">
-        <h2>渡航日が変更になるとき</h2>
-        <p>渡航日を変えたらSFAの渡航日を編集して変える。<br/>
-        保険関連は渡航時期がズレると契約が変わる場合があるからきちんとSFAを飛ばす。<br/><br/>
-        Visaはめっちゃ渡航日が変わる場合は注意。</p>
-
         <h2>WHに関する様々な質問</h2>
         <p><a href="https://anhsakura0531.github.io/wh-guide/" target="_blank" rel="noopener">WH国別情報</a>から情報を探して返信</p>
         <p class="step-note">→情報がなければ自分で調べる or 詳しい方に聞く</p>
@@ -457,8 +686,14 @@ StudyInコーチです😊
   document.querySelectorAll(".speak-btn").forEach(btn => {
     const sectionId = btn.getAttribute("data-section");
     const audio = new Audio("audio/" + sectionId + ".wav");
+    audio.preload = "none"; // 未生成の音声ファイルにアクセスして読み込みエラーを起こさないため
+    let userRequestedPlay = false;
     audio.addEventListener("ended", () => btn.classList.remove("playing"));
-    audio.addEventListener("error", () => { btn.classList.remove("playing"); alert("音声ファイルを再生できませんでした。"); });
+    audio.addEventListener("error", () => {
+      btn.classList.remove("playing");
+      if (userRequestedPlay) alert("音声ファイルを再生できませんでした。（この項目の音声は準備中です）");
+      userRequestedPlay = false;
+    });
 
     btn.addEventListener("click", () => {
       const wasPlaying = btn.classList.contains("playing");
@@ -468,6 +703,7 @@ StudyInコーチです😊
       currentAudio = audio;
       audio.currentTime = 0;
       btn.classList.add("playing");
+      userRequestedPlay = true;
       audio.play().catch(() => { btn.classList.remove("playing"); });
     });
   });
